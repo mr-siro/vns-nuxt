@@ -1,0 +1,13 @@
+$primary-color:#3BB873;
+$white-color:#FFFFFF;
+
+@mixin btnMain {
+  width: 100%;
+  border: 2px solid;
+}
+
+@mixin wrapper {
+  display: grid;
+  grid-template-columns: 3fr;
+}
+

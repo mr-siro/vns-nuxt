@@ -35,7 +35,7 @@ export default {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'nuxt-fontawesome',
-    '@nuxtjs/proxy'
+    'nuxt-lazy-load'
   ],
 
   fontawesome: {
@@ -50,14 +50,6 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
-    proxy: true
-  },
-  proxy: {
-    '/signin': process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
-    '/signup': process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
-    '/me': process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
-    '/allpost':process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
-    '/mypost':process.env.API_ENDPOINT || 'https://vnsapi.herokuapp.com',
   },
   //
   router: {

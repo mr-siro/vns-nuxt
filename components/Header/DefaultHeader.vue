@@ -9,8 +9,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-nav-form>
-        <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        <b-form-input style="border-radius: 15px" size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+          <el-button size="small" type="primary" icon="el-icon-search" circle></el-button>
       </b-nav-form>
 
         <!-- Right aligned nav items -->
@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     ...mapState({
-      user:state => state.auth.user
+      user:state => state.profile.user
     })
   },
 
@@ -99,6 +99,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use "assets/css/base";
 .img-brand {
   width: 35px;
   height: 35px;
@@ -110,9 +111,7 @@ export default {
   justify-content: center;
   align-items: center;
   img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+   @include base.avatar;
     margin-right: 0.5rem;
   }
 }

@@ -1,6 +1,9 @@
 $primary-color:#3BB873;
 $white-color:#FFFFFF;
-
+$primary-color-press:#40C200;
+$gray-c180: #D8D8D8;
+$gray-c100:#D9D9D9;
+$border: 0.5px solid darkgray;
 @mixin btnMain {
   width: 100%;
   border: 2px solid;
@@ -9,5 +12,11 @@ $white-color:#FFFFFF;
 @mixin wrapper {
   display: grid;
   grid-template-columns: 3fr;
+}
+
+@mixin avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 

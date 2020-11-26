@@ -17,5 +17,7 @@ export default {
 
 <style lang="scss">
 @use "assets/css/base";
-
+h5 {
+  font-family: Arial,sans-serif;
+}
 </style>

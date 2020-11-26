@@ -7,14 +7,33 @@
       <div class="wrapper-content">
         <Nuxt />
       </div>
-      <div class="wrapper-footer"></div>
+      <div class="wrapper-footer">
+        <div class="main-footer">
+          <b-link target="_blank" href="https://play.google.com/store/apps/details?id=com.vnsocialmobile">
+            <img alt="#" :src="chPlay" >
+          </b-link>
+
+          <em class="my-2">Phiên bản 0.0.2</em>
+          <p style="font-size: 12px">Production with Nuxt js</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import DefaultHeader from '~/components/Header/DefaultHeader'
+import {Images} from 'assets/Images'
+
 export default {
+  created() {
+    this.$store.dispatch('getUser');
+  },
+  data() {
+    return {
+      chPlay: Images.chPlay
+    }
+  },
   components:{
     DefaultHeader
   }
@@ -64,7 +83,17 @@ html {
   width: 100%;
 }
 .wrapper-footer {
-  background-color: bisque;
-  height: 200px;
+  background-color: base.$gray-c100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.main-footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  img {
+    max-width: 6rem;
+  }
 }
 </style>

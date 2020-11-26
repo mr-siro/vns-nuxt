@@ -4,7 +4,6 @@ import Cookies from 'js-cookie'
 const state = () => ({
   token: null,
   message: null,
-  user:null
 })
 
 const getters = {
@@ -20,9 +19,7 @@ const mutations = {
   SIGN_UP(state, payload) {
     state.message = payload
   },
-  SET_USER(state,payload) {
-    state.user = payload
-  },
+
   CLEAR_TOKEN(state) {
     state.token = null
   }
@@ -30,15 +27,15 @@ const mutations = {
 
 const actions = {
   async login({ commit }, payload) {
-    const { data } = await this.$axios
-      .post('/signin', payload, { headers: { 'Content-Type': 'application/json' } })
+    let  data  = await this.$axios
+      .$post('/signin', payload, { headers: { 'Content-Type': 'application/json' } })
     localStorage.setItem(TOKEN, data.token)
     Cookies.set(TOKEN, data.token)
     commit('SET_TOKEN', data.token)
   },
   async signUp({ commit }, payload) {
-    const { data } = await this.$axios
-      .post('/signup', payload, { headers: { 'Content-Type': 'application/json' } })
+    let data  = await this.$axios
+      .$post('/signup', payload, { headers: { 'Content-Type': 'application/json' } })
     commit('SIGN_UP', data)
   },
 
@@ -54,11 +51,7 @@ const actions = {
     }
     commit('SET_TOKEN', token)
   },
- async getUser(context) {
-    const token = context.rootState.auth.token
-    const {data} = await this.$axios.get('/me',{ headers: { Authorization: "Bearer " + token } })
-   context.commit('SET_USER',data.user)
-  },
+
   logout(context){
   Cookies.remove(TOKEN);
   localStorage.removeItem(TOKEN)

@@ -8,7 +8,6 @@
       </div>
       <div class="col-md-7 right-profile">
         <el-card>
-          <CreatePost />
           <div class="main-post-profile">
             <div v-for="(item,index) in listGuestPost" :key="index">
               <CardPost :item="item" />

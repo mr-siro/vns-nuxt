@@ -26,7 +26,7 @@
       </div>
       <div class="view-name-profile my-4">
         <h3>{{user.name}}</h3>
-        <p v-show="!aboutVisible">{{user.aboutMe}}</p>
+          <p style="word-break: break-all; white-space: normal" v-show="!aboutVisible">{{user.aboutMe}}</p>
         <b-link @click="aboutVisible = true">Chỉnh sửa</b-link>
         <div class="wrap-about" v-show="aboutVisible">
           <b-form-textarea
@@ -34,6 +34,7 @@
             v-model="getAbout"
             rows="3"
             no-resize
+            maxlength="80"
           ></b-form-textarea>
           <div class="mt-2">
             <b-button @click.prevent="aboutVisible = false" variant="secondary">Huỷ</b-button>

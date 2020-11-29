@@ -2,7 +2,7 @@
 <div class="friend-wrapper mb-3">
   <div class="d-flex flex-row justify-content-between align-items-center friend-items">
     <div class="d-flex flex-row left-friend justify-content-center align-items-center m-2">
-      <img alt="#" :src="friendImage">
+      <img @click="goToProfile(routeId)" alt="#" :src="friendImage">
       <h6 class="ml-2">{{friendName}}</h6>
     </div>
     <div class="right-friend mr-2">
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
+
 export default {
 name: "CardFriend",
   props: {
@@ -21,7 +23,23 @@ name: "CardFriend",
     },
     friendName:{
       type: String
+    },
+    routeId:{
+      type:String
     }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.profile.user
+    })
+  },
+  methods:{
+    goToProfile(routeId) {
+      if(routeId !== this.user._id)
+      {
+        this.$router.push({params:{userId:routeId},path:`/${routeId}` })
+      }
+    },
   }
 }
 </script>
@@ -37,6 +55,7 @@ name: "CardFriend",
     width: 80px;
     height: 80px;
     border-radius: 10px;
+    cursor: pointer;
   }
   h6 {
     font-weight: 600;

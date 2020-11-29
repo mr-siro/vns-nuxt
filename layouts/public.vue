@@ -30,4 +30,7 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
+h5, h6 {
+  font-family: Arial,sans-serif;
+}
 </style>

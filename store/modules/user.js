@@ -1,5 +1,6 @@
 const state = () => ({
-  user: null
+  user: null,
+  guestProfile:null
 })
 
 const getters = {
@@ -8,7 +9,7 @@ const getters = {
   },
   getFollowing(state) {
     return state.user.following
-  }
+  },
 }
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
   UNFOLLOW(state,payload) {
     const index = state.user.following.findIndex(item => item._id === payload._id)
     state.user.following.splice(index,1)
+  },
+  SET_GUEST_PROFILE(state,payload) {
+    state.guestProfile = payload
   }
 }
 
@@ -98,7 +102,16 @@ const actions = {
           Authorization: 'Bearer ' + token
         }
       })
+    console.log(payload)
     context.commit('FOLLOW', payload)
+  },
+  async fetchGuestProfile(context,payload) {
+    const token = context.rootState.auth.token
+    let data = await this.$axios.$get(`/user/${payload}`,
+      { headers: { Authorization: 'Bearer ' + token } }
+      )
+    context.commit('SET_GUEST_PROFILE',data.user)
+    // context.commit('FETCH_GUEST_POST',data.posts)
   }
 }
 

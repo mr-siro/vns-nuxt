@@ -2,15 +2,19 @@
   <div class="home-wrapper">
     <b-container style="max-width: 40rem">
       <div class="top-content">
-        <CreatePost/>
+        <CreatePost />
       </div>
-      <b-spinner v-if="isLoading" variant="success" label="Spinning"></b-spinner>
       <div class="main-content">
-          <div v-for="(item,index) in listAllPost" :key="index">
-            <CardPost :item="item" />
-          </div>
-          <b-button @click="getPost" variant="outline-success">See more</b-button>
+        <div v-for="(item, index) in listAllPost" :key="index">
+          <CardPost :item="item" />
         </div>
+        <infinite-loading @infinite="infiniteHandler" force-use-infinite-wrapper=".b-container">
+          <div slot="spinner">
+            <b-spinner variant="success" label="Spinning"></b-spinner>
+          </div>
+          <div slot="no-more">Hết rồi!!!</div>
+        </infinite-loading>
+      </div>
     </b-container>
   </div>
 </template>
@@ -19,45 +23,45 @@
 import { mapState } from 'vuex'
 import CardPost from '@/components/card/CardPost'
 import CreatePost from '@/components/card/CreatePost'
+import InfiniteLoading from 'vue-infinite-loading'
+
 export default {
   name: 'HomePage',
   components: {
     CardPost,
-    CreatePost
+    CreatePost,
+    InfiniteLoading
   },
   data() {
     return {
       pageQuery: {
-        currentPage: 0,
-        pageSize: 3,
-        loadMore: true,
-      },
-      isLoading:false
+        currentPage: 1,
+        pageSize: 3
+      }
     }
   },
   computed: {
     ...mapState({
       listAllPost: state => state.post.allPost,
-      totalPage: state => state.post.pagination.pageCount
+      token: state => state.auth.token
     })
   },
-  created() {
-    this.isLoading = true
-    this.$store.dispatch('fetchAllPost', {
-      currentPage: this.pageQuery.currentPage,
-      pageSize: this.pageQuery.pageSize
-    }).then(() => {
-      this.isLoading = false
-    })
-  },
+
   methods: {
-    getPost() {
-      if (this.pageQuery.currentPage <= this.totalPage) {
-        this.$store.dispatch('fetchAllPost', {
-          currentPage: this.pageQuery.currentPage++,
-          pageSize: this.pageQuery.pageSize
+    async infiniteHandler($state) {
+      await this.$axios.$get(`/allpost?currentPage=${this.pageQuery.currentPage}&pageSize=${this.pageQuery.pageSize}`,
+        {
+          headers: { Authorization: 'Bearer ' + this.token }
         })
-      }
+        .then((data) => {
+          if (data.posts.length) {
+            this.pageQuery.currentPage += 1
+            this.listAllPost.push(...data.posts)
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        })
     }
   }
 }

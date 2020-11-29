@@ -18,13 +18,14 @@
         </div>
       </div>
     </div>
+    <BackToTop/>
   </div>
 </template>
 
 <script>
 import DefaultHeader from '~/components/Header/DefaultHeader'
 import {Images} from 'assets/Images'
-
+import BackToTop from '@/components/button/BackToTop'
 export default {
   created() {
     this.$store.dispatch('getUser');
@@ -35,7 +36,8 @@ export default {
     }
   },
   components:{
-    DefaultHeader
+    DefaultHeader,
+    BackToTop
   }
 }
 </script>
@@ -74,7 +76,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-
+h5, h6 {
+  font-family: Arial,sans-serif;
+}
 .wrapper {
   @include base.wrapper
 }

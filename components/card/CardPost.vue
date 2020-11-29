@@ -157,7 +157,7 @@ export default {
     ...mapActions(['deletePost','likePost','unLikePost']),
     goToProfile(routeId) {
       if (routeId !== this.user._id) {
-        this.$router.push({ path: `/${routeId}` })
+        this.$router.push({params:{userId:routeId},path:`/${routeId}` })
       } else {
         this.$router.push({ name: 'profile' })
       }

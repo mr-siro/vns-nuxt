@@ -37,7 +37,7 @@
                       placeholder="password"
                     ></b-form-input>
                   </b-form-group>
-                  <b-button class="btn-main" type="submit" variant="success">Đăng nhập</b-button>
+                  <el-button @click="onLogin" :loading="loading" class="btn-main" type="success">Đăng nhập</el-button>
                 </b-form>
               </b-tab>
               <b-tab title="Đăng ký">
@@ -83,7 +83,7 @@
                       placeholder="password"
                     ></b-form-input>
                   </b-form-group>
-                  <b-button class="btn-main" type="submit" variant="success">Đăng ký</b-button>
+                  <el-button @click="onSignup" :loading="loading" class="btn-main" type="success">Đăng ký</el-button>
                 </b-form>
               </b-tab>
             </b-tabs>
@@ -109,24 +109,33 @@ export default {
         name: '',
         email: '',
         password: ''
-      }
+      },
+      loading:false
     }
   },
   methods: {
     onLogin(event) {
       event.preventDefault()
+      this.loading = true
       this.$store.dispatch('login', {
         email: this.loginForm.email,
         password: this.loginForm.password
       })
-        .then(() => this.$router.push({ name: 'index' }))
+        .then(() => {
+          this.$router.push({ name: 'index' })
+          this.loading = false
+        })
         .catch(err => {
-          this.$message.error(`${err}`)
+          {
+            this.$message.error(`${err}`)
+            this.loading = false
+          }
         })
     },
 
     onSignup(event) {
       event.preventDefault()
+      this.loading = true
       this.$store.dispatch('signUp', {
         name: this.signUpForm.name,
         email: this.signUpForm.email,
@@ -137,9 +146,11 @@ export default {
             message: 'Đăng ký thành công!',
             type: 'success'
           })
+          this.loading = false
         })
         .catch(err => {
           this.$message.error(`${err}`)
+          this.loading = false
         })
     }
   },

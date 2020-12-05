@@ -30,7 +30,7 @@
 import CreatePost from '@/components/card/CreatePost'
 import CardPost from '@/components/card/CardPost'
 import { mapState } from 'vuex'
-import InfiniteLoading from 'vue-infinite-loading'
+
 export default {
   data() {
     return {
@@ -42,8 +42,7 @@ export default {
   },
   components: {
     CreatePost,
-    CardPost,
-    InfiniteLoading
+    CardPost
   },
   computed: {
     ...mapState({

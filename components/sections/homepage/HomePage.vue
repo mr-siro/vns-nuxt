@@ -23,14 +23,12 @@
 import { mapState } from 'vuex'
 import CardPost from '@/components/card/CardPost'
 import CreatePost from '@/components/card/CreatePost'
-import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'HomePage',
   components: {
     CardPost,
-    CreatePost,
-    InfiniteLoading
+    CreatePost
   },
   data() {
     return {
